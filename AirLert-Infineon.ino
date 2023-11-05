@@ -21,7 +21,7 @@
 #include <Notecard.h>
 
 
-#define PRODUCT_UID "edu.wpi.alum.jlutz:air_quality"
+#define PRODUCT_UID "xxxxxxx"
 
 String ssid="xxxxx";
 String passwd="xxxxxxx";
