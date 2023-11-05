@@ -23,9 +23,9 @@
 
 #define PRODUCT_UID "edu.wpi.alum.jlutz:air_quality"
 
-String ssid="op";
-String passwd="Granby18!";
-String phone = "+15083080654";
+String ssid="xxxxx";
+String passwd="xxxxxxx";
+String phone = "+1xxxxxxxxxx";
 
 /*
 * In case no supported platform is defined, the
