@@ -5,10 +5,10 @@
  1. Infineon XMC 1300 Boot Kit MCU board
  2. Infineon S2GO RADAR BGT60LTR11 - connected to pins TD (2.6 - pin 2) and PD (2.7 - pin 3)
  3. Pimoroni SGP30 (detects TVOC and eCO2) - connected to Blues Notecarrier via Quiic connector
- 4. Blues Notecarrier B (with Wifi Notecard) - connected to XMC 1300 board via I2C pins (SDA P2.1, SCL P2.0)
+ 4. Blues Notecarrier B (with WiFi Notecard) - connected to XMC 1300 board via I2C pins (SDA P2.1, SCL P2.0)
  5. Arduino Uno R3 with Adafruit Music Maker MP3 shield - connected to pin 2 on Arduino and pin 0.11 (17) on XMC 1300
  6. SD card inserted into MP3 shield with .wav file of warning
- 7. Customer 3D printed enclosure
+ 7. Custom 3D printed enclosure
  */
 
 #include <Arduino.h>
@@ -20,9 +20,10 @@
 #include <Wire.h>
 #include <Notecard.h>
 
-
+//project ID to connect to Blues Notehub
 #define PRODUCT_UID "xxxxxxx"
 
+//WiFi SSID and password, and phone number that is going to receive the text message (make sure you follow international format - USA is +1)
 String ssid="xxxxx";
 String passwd="xxxxxxx";
 String phone = "+1xxxxxxxxxx";
@@ -39,6 +40,7 @@ String phone = "+1xxxxxxxxxx";
 #define PD  3
 #endif
 
+//pin number to trigger playing of wav file on Arduino Uno with MP3 shield
 #define BUZZER_PIN 17
 
 /* Create radar object with following arguments:
@@ -90,7 +92,7 @@ void setup()
     //measureAirQuality should be called in one second increments after a call to initAirQuality
     mySensor.initAirQuality();
 
-    //initialize buzzer
+    //initialize pin to be triggered to play audio file
     pinMode(BUZZER_PIN, OUTPUT);
     
     
@@ -163,7 +165,7 @@ void loop()
     Serial.print(mySensor.TVOC);
     Serial.println(" ppb");
 
-    //if CO2 is elevated, activate buzzer and send text message
+    //if CO2 is elevated and motion is detected, activate buzzer and send text message
     if(mySensor.CO2 > 1000 && motion == Bgt60::MOTION)
     {
       Serial.println("Activate warning!");
